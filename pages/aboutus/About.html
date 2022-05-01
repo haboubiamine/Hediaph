@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="http://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="http://fonts.cdnfonts.com/css/hartone-softed" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/elmono-2" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/vag-primer" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/dunkin-lyons" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <script src="https://kit.fontawesome.com/a6269221a2.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+   
+    <div class="logoo ">
+        <a href="./../../Index.html"  class="logo" style="margin-left: 20px;color: black;">
+            <span>H</span> <span>E</span> <span>D</span> <span>I</span> <span>A</span> <span style="margin-left: 15px;"> </span> 
+            <span>P</span> <span>H</span> <span>O</span> <span>T</span> <span>O</span> <span>G</span> <span>R</span> <span>A</span> <span>P</span> <span>H</span> <span>Y</span>
+        </a>  
+    </div>
+        <h2 style="font-family: 'Hartone Softed'" class="section-heading h1 pt-4">About Us</h2>
+        <!--Section description-->
+        <p class="section-description animate__animated animate__fadeIn animate__delay-1s" style="font-family: 'Elmono', sans-serif;">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget sapien pulvinar,
+             vestibulum urna vitae, placerat dui. Suspendisse lobortis lorem in urna ultricies consectetur.
+              Maecenas sed eros sodales, tempor lorem vel, dignissim metus. Maecenas interdum ullamcorper posuere.
+               Quisque nisl ipsum, hendrerit et egestas sed, semper non nisi. Morbi imperdiet tristique quam eu pharetra.
+                Fusce in nunc euismod, iaculis orci sit amet, ullamcorper ligula. Phasellus placerat turpis sapien,
+                 sed accumsan velit bibendum eu. Pellentesque laoreet, justo ut consectetur fermentum, 
+                 est neque ullamcorper enim, vel mattis sapien lorem quis sapien.
+                 
+        </p>
+      
+      
+       
+        <!--Grid row-->
+      
+            <div id="team" class="row text-center personnes animate__animated animate__fadeIn animate__delay-2s" >
+    
+                <!--Grid column-->
+                
+                
+                <!--Grid column-->
+        
+                
+            </div>
+          
+            <p class="section-description animate__animated animate__fadeIn animate__delay-2s">
+            
+                <a href="https://facebook.com" class="icon-button facebook"><i class="fa-brands fa-facebook"></i><span></span></a>
+                <a href="https://plus.google.com" class="icon-button instagram"><i class="fa-brands fa-instagram"></i><span></span></a>
+                
+            </p>
+            <div class="inform animate__animated animate__fadeIn animate__delay-2s">
+                <p class="info"><i class="fa-solid fa-map-location fa-xl" style="margin-right: 10px;" ></i><span style="font-size: 10px;font-family: 'Dunkin Lyons', sans-serif;">La Mannouba, Cité Essaada El Mornaguia, 1110, Tunisie</span></p>
+                <p class="info"><i class="fa-solid fa-at fa-xl" style="margin-right: 10px;"></i><span style="font-size: 10px;font-family: 'Dunkin Lyons', sans-serif;">exemple@gmail.com</span></p>
+                <p class="info"><i class="fa-solid fa-phone fa-xl" style="margin-right: 10px;"></i><span style="font-size: 10px;font-family: 'Dunkin Lyons', sans-serif;">21 858 965</span></p> 
+            </div>
+        </div>
+       
+        <!--Grid row-->
+      
+    </section> 
+    <script>
+        $( document ).ready(function() {
+            axios.get('http://127.0.0.1:8000/personne/')
+        .then(function (response) {
+            // handle success
+            console.log(response.data);
+            response.data.forEach(per => {
+                $('#team').html($('#team').html()+`
+                <div class="col-lg-3 col-md-6 mb-r">
+    
+    <div class="avatar mb-3">
+        <img src="http://127.0.0.1:8000`+per.image+`" class="rounded-circle z-depth-1" alt="First sample avatar image">
+    </div>
+    <h4 style="font-family: 'VAG Primer', sans-serif; text-transform: capitalize;">`+per.nom+` `+per.prenom+`</h4>
+  
+    <p style="font-family: 'Elmono', sans-serif;">`+per.description+`</p>
+
+    
+
+</div>
+                `)
+            });
+            
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+        })
+ </script>
+</body>
+</html>

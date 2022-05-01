@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+    <title>View</title>
+</head>
+<body>
+    <div class="logoo ">
+        <a href="./../../Index.html" class="logo" style="margin-left: 20px; color: black;text-decoration: none;">
+            <span>H</span> <span>E</span> <span>D</span> <span>I</span> <span>A</span> <span style="margin-left: 15px;"> </span> 
+            <span>P</span> <span>H</span> <span>O</span> <span>T</span> <span>O</span> <span>G</span> <span>R</span> <span>A</span> <span>P</span> <span>H</span> <span>Y</span>
+        </a>  
+    </div>
+    <div class="animate__animated animate__fadeIn animate__delay-1s" style="width: 100; padding-top: 25px;padding-bottom: 25px;text-align: center;" >
+        <h2 id="theme-name" class="subtitle">Beauty</h2>
+        <p id="theme-desc" class="desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+       
+    </div>
+    <div class="container-fluid animate__animated animate__fadeIn animate__delay-2s">
+        <div class="row">
+          <div class="column" id="col-1">
+            
+          </div>
+          <div class="column" id="col-2">
+            
+        </div>
+        <div class="column" id="col-3">
+            
+        </div>
+        </div>
+      </div>
+    
+        
+    </div>
+
+    <script>
+
+$( document ).ready(function() {
+
+    function pushone(URL) {
+        $('#col-1').html($('#col-1').html()+`
+        <img src="http://`+URL+`" /> `)
+    }
+    function pushtwo(URL) {
+        $('#col-2').html($('#col-2').html()+`
+        <img src="http://`+URL+`" /> `)
+    }
+    function pushthree(URL) {
+        $('#col-3').html($('#col-3').html()+`
+        <img src="http://`+URL+`" /> `)
+    }
+    const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('project')
+        var col = 1
+
+        axios.get('http://127.0.0.1:8000/projetByName/'+id)
+        .then(function (response) {
+            // handle success
+            // console.log(response.data.projet[0].description);
+            $('#theme-desc').html(response.data.projet[0].description)
+            $('#theme-name').html(response.data.projet[0].nom)
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+
+        axios.get('http://127.0.0.1:8000/image/'+id)
+        .then(function (response) {
+            // handle success
+            console.log(response.data.images);
+
+            response.data.images.forEach(img => {
+                if(col == 1){
+                    pushone(img.image)
+                    col=2
+                }else if (col == 2){
+                    pushtwo(img.image)
+                    col=3
+                }else{
+                    pushthree(img.image)
+                    col=1
+                }
+            });
+            
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+        })
+      
+
+    </script>
+</body>
+</html>
